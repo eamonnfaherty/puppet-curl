@@ -30,8 +30,8 @@ define curl::fetch($source,$destination,$timeout='0',$verbose=false,$sha=undef) 
   }
 
   if $sha != undef {
-    exec { 'curl-sha-$name':
-      command => "test \"`shasum $destination`\" = \"$sha  $destination\"",
+    exec { "curl-sha-$name":
+      command => "test \"`shasum -a 256 $destination`\" = \"$sha  $destination\"",
       require => Exec["curl-$name"],
     }
   }
